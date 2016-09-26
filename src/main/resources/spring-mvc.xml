@@ -12,7 +12,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 配置扫描的包 -->
-	<context:component-scan base-package="com.zavier">
+	<context:component-scan base-package="com.zavier" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 
@@ -38,7 +38,7 @@
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/jsp/"></property>
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
@@ -50,17 +50,22 @@
     </bean>
 	
 	<!-- 默认访问跳转到登录页面(即定义无需Controller的url<->view直接映射) -->  
-    <mvc:view-controller path="/" view-name="login"/>
+    <!-- <mvc:view-controller path="/" view-name="login"/> -->
 
 	<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->  
     <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->  
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+    	<!-- 定义默认的异常处理页面，当该异常类型的注册时使用 -->  
+	    <property name="defaultErrorView" value="error"></property>  
+	    <!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->  
+	    <property name="exceptionAttribute" value="ex"></property>
+	    <!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值 -->
         <property name="exceptionMappings">  
             <props>  
                 <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/error_fileupload.jsp页面 -->  
                 <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">WEB-INF/error_fileupload</prop>  
                 <!-- 处理其它异常(包括Controller抛出的) -->  
-                <prop key="java.lang.Throwable">WEB-INF/500</prop>  
+                <prop key="java.lang.Throwable">WEB-INF/500.jsp</prop>  
             </props>  
         </property>  
     </bean>
