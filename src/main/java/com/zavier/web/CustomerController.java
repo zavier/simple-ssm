@@ -15,7 +15,8 @@ public class CustomerController {
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index() {
-        customerService.testTransaction();
+        // customerService.testTransaction();
+        customerService.findById();
         return "index";
     }
 }

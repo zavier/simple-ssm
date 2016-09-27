@@ -1,6 +1,11 @@
 package com.zavier.entity;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
+
+    private static final long serialVersionUID = 3966700349269352615L;
+
     private Long id;
 
     private String name;

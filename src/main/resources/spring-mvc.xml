@@ -64,8 +64,8 @@
             <props>  
                 <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/error_fileupload.jsp页面 -->  
                 <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">WEB-INF/error_fileupload</prop>  
-                <!-- 处理其它异常(包括Controller抛出的) -->  
-                <prop key="java.lang.Throwable">WEB-INF/500.jsp</prop>  
+                <!-- 处理其它异常(包括Controller抛出的), 会跳转到之前配置的视图解析器进行解析展示 -->  
+                <prop key="java.lang.Throwable">500</prop>  
             </props>  
         </property>  
     </bean>
